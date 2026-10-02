@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { CAR_DATABASE } from '@/data/cars';
 
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY || "";
 
@@ -17,12 +18,19 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // System instruction for automotive context
+    // System instruction for automotive context with embedded RAG data
     const systemInstruction = `You are an expert automotive assistant representing a high-end luxury car discovery platform. 
-The user is currently viewing the brochure for: ${carModel || 'a premium vehicle'}.
+The user is currently viewing: ${carModel || 'the platform homepage'}.
 Your tone must be highly professional, concise, authoritative, and helpful—matching the editorial format of Porsche or Apple. 
-Provide accurate specifications, compare models if asked, and format your answers with clean markdown. 
-Do not use emojis unless absolutely necessary. Be precise.`;
+Do not use emojis unless absolutely necessary. Be precise.
+
+CRITICAL INSTRUCTION:
+Below is the EXACT, VERIFIED database of cars available. You MUST answer all user questions using ONLY the data provided below. Do not guess, and do not hallucinate external specs. If a user asks for a car not in the database, politely inform them it is currently unavailable.
+
+--- VERIFIED CAR DATABASE ---
+${JSON.stringify(CAR_DATABASE, null, 2)}
+-----------------------------
+`;
 
     // Build the contents array for Gemini REST API
     // Filter out our synthetic welcome message — only include user/model pairs starting from the first user message

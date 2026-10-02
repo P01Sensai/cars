@@ -2,13 +2,16 @@
 
 import SplashScreen from "@/components/SplashScreen";
 import ShowroomHero from "@/components/ShowroomHero";
+import NewsCarousel from "@/components/NewsCarousel";
 import { motion } from "framer-motion";
 
+import Link from "next/link";
+
 const TRENDING_CARS = [
-  { id: 1, name: "Mahindra Scorpio N", price: "₹13.60 Lakh", img: "/scorpio-hero.jpg" },
-  { id: 2, name: "Tata Safari Dark", price: "₹16.19 Lakh", img: "/safari-dark-hero.jpg" },
-  { id: 3, name: "Mahindra XUV 7XO", price: "₹14.00 Lakh", img: "/xuv-hero.jpg" },
-  { id: 4, name: "Hyundai Verna", price: "₹11.00 Lakh", img: "/verna-hero.jpg" },
+  { id: 1, name: "Mahindra Scorpio N", price: "₹13.60 Lakh", img: "/scorpio-hero.jpg", slug: "mahindra-scorpio-n" },
+  { id: 2, name: "Tata Safari Dark", price: "₹16.19 Lakh", img: "/safari-dark-hero.jpg", slug: "tata-safari-dark" },
+  { id: 3, name: "Mahindra XUV 7XO", price: "₹14.00 Lakh", img: "/xuv-hero.jpg", slug: "mahindra-xuv-7xo" },
+  { id: 4, name: "Hyundai Verna", price: "₹11.00 Lakh", img: "/verna-hero.jpg", slug: "hyundai-verna" },
 ];
 
 export default function Home() {
@@ -62,6 +65,7 @@ export default function Home() {
                   i === 0 ? 'md:col-span-2 md:row-span-2 h-[400px] md:h-[600px]' : 'h-[300px] md:h-auto md:min-h-[290px]'
                 }`}
               >
+                <Link href={`/cars/${car.slug}`} className="absolute inset-0 z-20" aria-label={`View details for ${car.name}`}></Link>
                 <img 
                   src={car.img} 
                   alt={car.name} 
@@ -95,17 +99,9 @@ export default function Home() {
           <div className="absolute top-0 left-1/4 w-[60vw] h-[60vw] bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.05)_0%,transparent_70%)] dark:bg-[radial-gradient(circle_at_center,rgba(30,58,138,0.1)_0%,transparent_70%)]" />
         </div>
         
-        <div className="relative z-10">
+        <div className="relative z-10 w-full overflow-hidden pb-12">
           <h3 className="text-4xl font-black tracking-tighter mb-16 text-center text-black dark:text-white font-heading">AUTOMOTIVE INSIGHTS</h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 site-max mx-auto">
-            {[1, 2, 3].map((i) => (
-              <div key={i} className="group cursor-pointer">
-                <div className="h-64 bg-black/5 dark:bg-white/5 rounded-2xl mb-6 group-hover:opacity-80 transition border border-black/5 dark:border-white/5"></div>
-                <p className="text-xs font-bold text-gray-500 mb-3 tracking-widest uppercase">INDUSTRY NEWS</p>
-                <h4 className="font-bold text-2xl leading-tight group-hover:text-gray-700 dark:group-hover:text-gray-300 transition text-black dark:text-white">The Future of EVs in the Indian Market by 2026</h4>
-              </div>
-            ))}
-          </div>
+          <NewsCarousel />
         </div>
       </section>
     </main>

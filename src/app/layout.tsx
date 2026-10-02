@@ -20,6 +20,8 @@ export const metadata: Metadata = {
 
 import { ThemeProvider } from "@/components/ThemeProvider";
 
+import AIChatBot from "@/components/AIChatBot";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -45,6 +47,7 @@ export default function RootLayout({
 
           <Header />
           {children}
+          <AIChatBot />
         </ThemeProvider>
       </body>
     </html>
