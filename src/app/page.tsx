@@ -19,7 +19,7 @@ export default function Home() {
       {/* 3D Cinematic Hero */}
       <ShowroomHero />
       
-      {/* Trending Carousel with Animated Background */}
+      {/* Trending Bento Grid with Animated Background */}
       <section className="relative pt-12 pb-32 px-8">
         <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
           {/* Highly Performant Static Radial Gradients sitting over the universal background */}
@@ -30,7 +30,7 @@ export default function Home() {
         <div className="site-max relative z-10 mx-auto">
           <div className="flex justify-between items-end mb-12">
             <div>
-              <h3 className="text-4xl font-black tracking-tighter text-black dark:text-white mb-2">TRENDING NOW</h3>
+              <h3 className="text-4xl font-black tracking-tighter text-black dark:text-white mb-2 font-heading">TRENDING NOW</h3>
               <p className="text-gray-600 dark:text-gray-400 font-light">The most searched premium models this week.</p>
             </div>
             <button className="text-sm font-semibold text-black/50 dark:text-white/50 hover:text-black dark:hover:text-white transition-colors uppercase tracking-widest hidden md:block">
@@ -38,33 +38,53 @@ export default function Home() {
             </button>
           </div>
           
-          <div className="flex gap-8 overflow-x-auto pb-12 snap-x hide-scrollbar">
-            {TRENDING_CARS.map((car) => (
-              <div 
+          <motion.div 
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={{
+              hidden: { opacity: 0 },
+              visible: {
+                opacity: 1,
+                transition: { staggerChildren: 0.1 }
+              }
+            }}
+            className="grid grid-cols-1 md:grid-cols-3 gap-6"
+          >
+            {TRENDING_CARS.map((car, i) => (
+              <motion.div 
                 key={car.id} 
-                className="min-w-[320px] md:min-w-[420px] bg-black/5 dark:bg-white/5 backdrop-blur-xl rounded-3xl p-4 snap-center border border-black/10 dark:border-white/10 hover:border-black/30 dark:hover:border-white/30 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] dark:hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.5)] group cursor-pointer"
+                variants={{
+                  hidden: { opacity: 0, y: 30, scale: 0.95 },
+                  visible: { opacity: 1, y: 0, scale: 1, transition: { type: "spring", stiffness: 100, damping: 20 } }
+                }}
+                className={`relative bg-black/5 dark:bg-white/5 backdrop-blur-xl rounded-3xl overflow-hidden border border-black/10 dark:border-white/10 group cursor-pointer ${
+                  i === 0 ? 'md:col-span-2 md:row-span-2 h-[400px] md:h-[600px]' : 'h-[300px] md:h-auto md:min-h-[290px]'
+                }`}
               >
-                <div className="h-[220px] bg-gray-200 dark:bg-black rounded-2xl mb-6 overflow-hidden relative">
-                  <img 
-                    src={car.img} 
-                    alt={car.name} 
-                    className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-80 group-hover:opacity-100 transition-opacity duration-500"></div>
-                  <div className="absolute bottom-4 left-4 transform transition-transform duration-500 group-hover:-translate-y-1">
+                <img 
+                  src={car.img} 
+                  alt={car.name} 
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                />
+                
+                {/* Gradient overlay for text legibility */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-80 group-hover:opacity-100 transition-opacity duration-500"></div>
+                
+                {/* Glassmorphic content block that slides up */}
+                <div className="absolute inset-x-0 bottom-0 p-6 flex items-end justify-between transform transition-transform duration-500 md:translate-y-4 md:group-hover:translate-y-0">
+                  <div>
                     <p className="text-xs font-bold text-white/70 tracking-wider uppercase mb-1">Starting at</p>
-                    <p className="text-xl font-bold text-white">{car.price}</p>
+                    <p className="text-xl font-bold text-white mb-2">{car.price}</p>
+                    <h4 className="font-bold text-2xl md:text-3xl text-white tracking-tight">{car.name}</h4>
                   </div>
-                </div>
-                <div className="px-2 flex items-center justify-between pb-2 transform transition-transform duration-500 group-hover:translate-x-1">
-                  <h4 className="font-bold text-2xl text-black dark:text-white tracking-tight">{car.name}</h4>
-                  <button className="w-10 h-10 rounded-full bg-black/5 dark:bg-white/10 flex items-center justify-center group-hover:bg-black dark:group-hover:bg-white group-hover:text-white dark:group-hover:text-black transition-colors duration-300">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                  <button className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-md flex flex-shrink-0 items-center justify-center text-white border border-white/30 group-hover:bg-white group-hover:text-black transition-all duration-300 transform group-hover:-rotate-45">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
                   </button>
                 </div>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
@@ -76,7 +96,7 @@ export default function Home() {
         </div>
         
         <div className="relative z-10">
-          <h3 className="text-4xl font-black tracking-tighter mb-16 text-center text-black dark:text-white">AUTOMOTIVE INSIGHTS</h3>
+          <h3 className="text-4xl font-black tracking-tighter mb-16 text-center text-black dark:text-white font-heading">AUTOMOTIVE INSIGHTS</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 site-max mx-auto">
             {[1, 2, 3].map((i) => (
               <div key={i} className="group cursor-pointer">

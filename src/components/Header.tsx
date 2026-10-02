@@ -18,7 +18,6 @@ export default function Header() {
   const navLinks = [
     { name: "Showroom", href: "/" },
     { name: "Matchup", href: "/compare" },
-    { name: "Brochures", href: "/brochures" },
   ];
 
   return (

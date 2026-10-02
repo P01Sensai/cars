@@ -155,7 +155,7 @@ export default function ShowroomHero() {
               <p className="text-sm md:text-base font-bold text-gray-400 tracking-[0.2em] uppercase mb-4">
                 {car.subtitle}
               </p>
-              <h2 className="text-5xl md:text-8xl font-black tracking-tighter mb-6 text-white drop-shadow-2xl">
+              <h2 className="text-5xl md:text-8xl font-black font-heading tracking-tighter mb-6 text-white drop-shadow-2xl">
                 {car.title}
               </h2>
               <p className="text-lg md:text-2xl text-gray-300 mb-12 max-w-2xl font-light">
@@ -173,7 +173,7 @@ export default function ShowroomHero() {
               <p className="text-sm md:text-base font-bold text-gray-400 tracking-[0.2em] uppercase mb-4">
                 Step Inside
               </p>
-              <h2 className="text-5xl md:text-8xl font-black tracking-tighter mb-6 text-white drop-shadow-2xl">
+              <h2 className="text-5xl md:text-8xl font-black font-heading tracking-tighter mb-6 text-white drop-shadow-2xl">
                 LUXURY REDEFINED
               </h2>
               <p className="text-lg md:text-2xl text-gray-300 mb-12 max-w-2xl font-light">

@@ -36,7 +36,7 @@ Do not use emojis unless absolutely necessary. Be precise.`;
     const contents = firstUserIdx >= 0 ? allMessages.slice(firstUserIdx) : allMessages;
 
     // Call Gemini REST API directly
-    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`;
+    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key=${GEMINI_API_KEY}`;
     
     const response = await fetch(apiUrl, {
       method: "POST",

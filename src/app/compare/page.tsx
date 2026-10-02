@@ -7,7 +7,7 @@ export const metadata = {
 
 export default function ComparePage() {
   return (
-    <main className="min-h-screen bg-background text-foreground pt-10">
+    <main className="min-h-screen pt-10">
       <CompareClient />
     </main>
   );
