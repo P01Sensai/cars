@@ -25,9 +25,7 @@ export default function Home() {
       {/* Trending Bento Grid with Animated Background */}
       <section className="relative pt-12 pb-32 px-8">
         <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
-          {/* Highly Performant Static Radial Gradients sitting over the universal background */}
-          <div className="absolute -top-[20vw] left-1/4 w-[60vw] h-[60vw] bg-[radial-gradient(circle_at_center,rgba(79,70,229,0.15)_0%,transparent_70%)]" />
-          <div className="absolute top-[20%] right-1/4 w-[60vw] h-[60vw] bg-[radial-gradient(circle_at_center,rgba(147,51,234,0.1)_0%,transparent_70%)]" />
+          {/* Removed colored radial gradients to keep background pitch black */}
         </div>
 
         <div className="site-max relative z-10 mx-auto">
@@ -93,10 +91,9 @@ export default function Home() {
       </section>
 
       {/* RSS News Grid Placeholder */}
-      <section className="relative py-32 px-8 border-t border-black/5 dark:border-white/10 overflow-hidden">
+      <section className="relative py-32 px-8 overflow-hidden">
         <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
-          {/* Highly Performant Static Radial Gradient sitting over the universal background */}
-          <div className="absolute top-0 left-1/4 w-[60vw] h-[60vw] bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.05)_0%,transparent_70%)] dark:bg-[radial-gradient(circle_at_center,rgba(30,58,138,0.1)_0%,transparent_70%)]" />
+          {/* Removed colored radial gradients to keep background pitch black */}
         </div>
         
         <div className="relative z-10 w-full overflow-hidden pb-12">

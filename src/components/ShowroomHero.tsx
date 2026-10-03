@@ -34,7 +34,7 @@ export default function ShowroomHero() {
       {/* Seamless blend gradient that only fades at the very bottom 20% */}
       <div 
         className="absolute inset-0 pointer-events-none z-0" 
-        style={{ background: 'linear-gradient(to bottom, transparent 0%, transparent 80%, var(--background) 100%)' }}
+        style={{ background: 'linear-gradient(to bottom, transparent 0%, transparent 80%, #000 100%)' }}
       ></div>
 
       {/* Hero Content */}

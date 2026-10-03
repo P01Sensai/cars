@@ -5,7 +5,8 @@ const parser = new Parser({
   customFields: {
     item: [
       ['media:content', 'mediaContent'],
-      ['description', 'description']
+      ['description', 'description'],
+      ['content:encoded', 'contentEncoded']
     ]
   },
   headers: {
@@ -17,17 +18,26 @@ export const revalidate = 3600; // Cache for 1 hour
 
 export async function GET() {
   try {
-    // Autocar India RSS Feed
-    const feed = await parser.parseURL('https://www.autocarindia.com/rss/news');
+    // Motorbeam India RSS Feed (More reliable than Autocar)
+    const feed = await parser.parseURL('https://www.motorbeam.com/feed/');
+
+    const cheerio = require('cheerio');
 
     const articles = feed.items.slice(0, 8).map((item) => {
-      // Try to extract an image from the description if media:content is missing
       let imageUrl = null;
+      
+      // 1. Try standard media content
       if (item.mediaContent && item.mediaContent.$ && item.mediaContent.$.url) {
         imageUrl = item.mediaContent.$.url;
-      } else if (item.content) {
-        const imgMatch = item.content.match(/<img[^>]+src="([^">]+)"/);
-        if (imgMatch) imageUrl = imgMatch[1];
+      } 
+      // 2. Try Cheerio extraction from HTML content (highly reliable)
+      else if (item.contentEncoded || item.content || item.description) {
+        const htmlToParse = item.contentEncoded || item.content || item.description || "";
+        const $ = cheerio.load(htmlToParse);
+        const firstImg = $('img').first().attr('src');
+        if (firstImg) {
+          imageUrl = firstImg;
+        }
       }
 
       // Clean up description
@@ -40,7 +50,7 @@ export async function GET() {
         link: item.link,
         pubDate: item.pubDate,
         description: cleanDesc,
-        image: imageUrl || "/safari-dark-hero.jpg" // fallback image
+        image: imageUrl || "/safari-dark-hero.jpg" // Final fallback
       };
     });
 

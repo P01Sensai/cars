@@ -34,15 +34,10 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col relative bg-white text-black dark:bg-black dark:text-white transition-colors duration-500">
-        <ThemeProvider>
+        <ThemeProvider attribute="class" defaultTheme="dark">
           {/* Universal Global Background */}
           <div className="fixed inset-0 z-[-1] pointer-events-none">
-            {/* Base Deep Gradient */}
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,#f8fafc_0%,#ffffff_100%)] dark:bg-[radial-gradient(ellipse_at_top,#0f172a_0%,#000000_100%)] transition-colors duration-500" />
-            {/* Global Texture Noise (Animated Cinematic Grain) */}
-            <div className="absolute -inset-[100%] bg-[url('/noise.svg')] opacity-[0.03] dark:opacity-20 mix-blend-overlay animate-grain pointer-events-none"></div>
-            {/* Modern Dot Matrix Pattern */}
-            <div className="absolute inset-0 bg-[radial-gradient(#000000_1px,transparent_1px)] dark:bg-[radial-gradient(#ffffff_1px,transparent_1px)] bg-[size:24px_24px] opacity-[0.03] dark:opacity-[0.05] [mask-image:radial-gradient(ellipse_80%_80%_at_50%_50%,#000_40%,transparent_100%)] transition-colors duration-500 pointer-events-none"></div>
+            {/* Base Deep Gradient - Removed to keep it pitch black */}
           </div>
 
           <Header />
