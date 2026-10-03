@@ -7,7 +7,7 @@ export const metadata = {
 
 export default function BrochuresPage() {
   return (
-    <main className="min-h-screen pt-20">
+    <main className="min-h-screen pt-32">
       <BrochureLibraryClient />
     </main>
   );

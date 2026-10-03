@@ -16,33 +16,44 @@ export default function ShowroomHero() {
   const scale = useTransform(scrollYProgress, [0, 1], [1, 1.1]);
 
   return (
-    <div ref={containerRef} className="relative w-full h-screen bg-black overflow-hidden -mt-20">
+    <div ref={containerRef} className="relative w-full h-screen overflow-hidden">
       
       {/* Cinematic Background */}
       <motion.div 
         style={{ y, opacity, scale }}
-        className="absolute inset-0 z-0"
+        className="absolute inset-0 z-0 bg-black"
       >
         <img 
           src="/safari-dark-hero.jpg" 
           alt="Premium SUV" 
           className="object-cover w-full h-full opacity-80"
         />
-        {/* Gradients for depth and text legibility */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/20 to-background"></div>
         <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-transparent to-transparent"></div>
       </motion.div>
 
+      {/* Seamless blend gradient that only fades at the very bottom 20% */}
+      <div 
+        className="absolute inset-0 pointer-events-none z-0" 
+        style={{ background: 'linear-gradient(to bottom, transparent 0%, transparent 80%, var(--background) 100%)' }}
+      ></div>
+
       {/* Hero Content */}
-      <div className="relative z-10 h-full flex items-center px-8 site-max mx-auto mt-10">
-        <div className="max-w-3xl">
+      <div className="relative z-10 h-full flex items-center px-8 site-max mx-auto pt-10 perspective-[1000px]">
+        <motion.div 
+          style={{ 
+            rotateX: useTransform(scrollYProgress, [0, 1], [0, 45]),
+            y: useTransform(scrollYProgress, [0, 1], [0, -100]),
+            opacity: useTransform(scrollYProgress, [0, 0.5], [1, 0])
+          }}
+          className="max-w-3xl transform-gpu"
+        >
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5, duration: 0.8 }}
-            className="text-white/60 uppercase tracking-[0.3em] font-bold text-sm mb-6"
+            className="text-white/60 uppercase tracking-[0.3em] font-bold text-sm mb-6 font-mono"
           >
-            The New Standard in Automotive Discovery
+            [ SYST_MSG: THE NEW STANDARD IN AUTOMOTIVE DISCOVERY ]
           </motion.p>
           
           <motion.h1 
@@ -52,7 +63,7 @@ export default function ShowroomHero() {
             className="text-6xl md:text-8xl lg:text-9xl font-black text-white font-heading tracking-tighter leading-[0.9] mb-8"
           >
             FIND YOUR <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-white/80 to-white/20">PERFECT</span> <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-orange-500 to-yellow-500">PERFECT</span> <br />
             DRIVE.
           </motion.h1>
           
@@ -90,7 +101,7 @@ export default function ShowroomHero() {
               Compare Cars
             </a>
           </motion.div>
-        </div>
+        </motion.div>
       </div>
       
       {/* Scroll Indicator */}

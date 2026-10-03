@@ -10,9 +10,17 @@ export default function Header() {
   const pathname = usePathname();
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
     setMounted(true);
+    
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+    
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const navLinks = [
@@ -21,14 +29,22 @@ export default function Header() {
     { name: "Brochures", href: "/brochures" },
   ];
 
+  const isTransparent = !scrolled && pathname === '/';
+  const textColorClass = isTransparent ? "text-white" : "text-foreground";
+  const linkColorClass = isTransparent ? "text-white/70 hover:text-white" : "text-foreground/60 hover:text-foreground";
+
   return (
     <motion.header
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ delay: 2.5, duration: 1, ease: "easeOut" }} // Delays until splash screen finishes
-      className="fixed top-0 left-0 right-0 z-40 bg-background/50 dark:bg-black/40 backdrop-blur-xl border-b border-gray-200/50 dark:border-white/10"
+      className={`fixed top-0 left-0 right-0 z-40 transition-all duration-500 border-b ${
+        isTransparent 
+          ? "bg-transparent border-transparent py-4"
+          : "bg-background/80 dark:bg-black/80 backdrop-blur-xl border-foreground/10 py-0" 
+      }`}
     >
-      <div className="site-max mx-auto px-8 h-20 flex items-center justify-between relative">
+      <div className={`site-max mx-auto px-8 h-20 flex items-center justify-between relative ${textColorClass}`}>
         
         {/* Animated Car with Dust Driving Along Bottom of Header */}
         <motion.div
@@ -36,7 +52,7 @@ export default function Header() {
           animate={{ x: "120vw" }}
           transition={{ duration: 7, repeat: Infinity, repeatDelay: 4, ease: "linear" }}
           style={{ willChange: "transform" }}
-          className="absolute -bottom-3 left-0 z-0 text-foreground pointer-events-none flex items-end opacity-40"
+          className="absolute -bottom-3 left-0 z-0 pointer-events-none flex items-end opacity-40"
         >
           {/* Dust Particles */}
           <div className="relative w-8 h-4 mr-1">
@@ -65,6 +81,7 @@ export default function Header() {
           <motion.div
             animate={{ y: [0, -2, 0, -1, 0] }}
             transition={{ repeat: Infinity, duration: 0.4, ease: "easeInOut" }}
+            className={textColorClass}
           >
             <svg width="80" height="24" viewBox="0 0 500 150" fill="currentColor">
               {/* Sleek Hypercar Body */}
@@ -96,8 +113,10 @@ export default function Header() {
               <Link
                 key={link.name}
                 href={link.href}
-                className={`text-sm font-semibold tracking-wide uppercase transition-colors hover:text-black dark:hover:text-white ${
-                  isActive ? "text-black dark:text-white" : "text-gray-500"
+                className={`text-sm font-semibold tracking-wide uppercase transition-colors ${
+                  isActive 
+                    ? (isTransparent ? "text-white" : "text-foreground") 
+                    : linkColorClass
                 }`}
               >
                 {link.name}
